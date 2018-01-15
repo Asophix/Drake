@@ -1,0 +1,7 @@
+2017-12-27 - v0.01
+Created.
+
+2018-01-15 - v0.012 
+Adding Wall, Weapon and Basic Gun classes (incomplete).
+Refactored movement code to generic omnidirectional function (looks less ugly).
+

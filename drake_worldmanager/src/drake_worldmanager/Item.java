@@ -48,9 +48,9 @@ public class Item extends Element {
 		}
 		return false;
 	}
-
+	
 	public void activate() {
-		System.out.println("Used item.");
+		
 	}
 
 }

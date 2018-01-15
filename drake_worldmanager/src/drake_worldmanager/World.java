@@ -13,16 +13,19 @@ public class World {
 	ArrayList<Item> items;
 	ArrayList<Actor> actors;
 	ArrayList<Projectile> projectiles;
+	ArrayList<Wall> walls;
 	long storedTime;
 	int totalframes = 0;
 	
 	final int SIZE = 200;
 	final long FRAME = 1000/60; //1 frame = 16,67 ms = 1/60 s
 	
+	
 	public World() {
 		items = new ArrayList<>(0);
 		actors = new ArrayList<>(0);
 		projectiles = new ArrayList<>(0);
+		walls = new ArrayList<>(0);
 	}
 
 	public void init(String path) throws IOException, InterruptedException {
@@ -30,11 +33,17 @@ public class World {
 		BufferedReader buf = new BufferedReader(new FileReader(path));
 		items.clear();
 		actors.clear();
+		projectiles.clear();
+		walls.clear();
 		
 		String line;
 		while ((line = buf.readLine()) != null) {
 			String[] cmd = line.split(" ");
-			String[] coords = cmd[1].split(",");
+			String[] params = cmd[1].split(";");
+			String[] coords = params[0].split(",");
+			String[] coords2 = null;
+			if (params.length > 1)
+				 coords2 = params[1].split(",");
 			switch (cmd[0]) {
 			case "A":
 				actors.add(new Actor(Float.parseFloat(coords[0]), 
@@ -44,6 +53,12 @@ public class World {
 			case "I":
 				items.add(new Item(Float.parseFloat(coords[0]), 
 								   Float.parseFloat(coords[1])));
+				break;
+			case "W":
+				walls.add(new Wall(Float.parseFloat(coords[0]), 
+								   Float.parseFloat(coords[1]),
+								   Float.parseFloat(coords2[0]),
+								   Float.parseFloat(coords2[1])));
 				break;
 			}
 		}

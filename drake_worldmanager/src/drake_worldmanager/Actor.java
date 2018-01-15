@@ -1,5 +1,6 @@
 package drake_worldmanager;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 public class Actor extends Element {
@@ -20,18 +21,7 @@ public class Actor extends Element {
 	}
 	
 	public void randomshit() {
-		if (!isRight && !moveX(1*FRAME)) {
-			isRight = true;
-		}
-		else if (isRight && !moveX(1*FRAME)) {
-			isRight = false;
-		}
-		if (!isUp && !moveY(1*FRAME)) {
-			isUp = true;
-		}
-		else if (isUp && !moveY(1*FRAME)) {
-			isUp = false;
-		}
+		this.moveFree(new Point(8, 8), FRAME);
 		this.lookAt = (float)(Math.random() * 360 - 180);
 		System.out.println("lookAt: " + this.lookAt);
 	}
@@ -45,6 +35,10 @@ public class Actor extends Element {
 	public void useItem(Item item) {
 		item.activate();
 		inventory.remove(item);
+	}
+	
+	public void useWeapon(Weapon weapon) {
+		weapon.activate(this.x, this.y, this.lookAt);
 	}
 
 }
